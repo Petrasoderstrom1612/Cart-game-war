@@ -19,6 +19,7 @@ getCardsBtn.addEventListener("click", () => {
             let cardsHtml = ""
             data.cards.forEach((oneCard)=>{
                 cardsHtml += `<div class="card-slot"><img src=${oneCard.images.png} alt="${oneCard.value + " " + oneCard.suit}" class="card"/></div>`
+                // cardsContainer.children[0].innerHTML  /* If you would like to skip creating the extra div that is wrapping around the img
             })
             return cardsSection.innerHTML = cardsHtml
         })
