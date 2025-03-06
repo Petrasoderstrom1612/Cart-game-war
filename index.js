@@ -1,5 +1,6 @@
 const getCardsBtn = document.getElementById("get-cards-btn")
 const cardsSection = document.getElementById("cards-section")
+const resultEl = document.getElementById("result-el")
 let deckId
 
 
@@ -24,7 +25,7 @@ getCardsBtn.addEventListener("click", () => {
             })
              cardsSection.innerHTML = cardsHtml
             
-           console.log(determineWinner(data.cards[0].value,data.cards[1].value)) 
+             resultEl.innerHTML = determineWinner(data.cards[0].value,data.cards[1].value)
         })
     },2000)
 })
