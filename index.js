@@ -1,7 +1,7 @@
 const getCardsBtn = document.getElementById("get-cards-btn")
 const cardsSection = document.getElementById("cards-section")
 let deckId
-const cardValues = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "JACK", "QUEEN", "KING", "ACE"]
+
 
 
 getCardsBtn.addEventListener("click", () => {
@@ -30,9 +30,30 @@ getCardsBtn.addEventListener("click", () => {
 })
 
 const determineWinner = (card1, card2) => {
-    let card1index = cardValues.indexOf(card1) //an inbuild function indexOf(the value you search for in the array)
-    let card2index = cardValues.indexOf(card2)
-    console.log(card1index + 2 , card2index + 2)
+    // ONE  WAY TO DO IT
+    // const cardValues = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "JACK", "QUEEN", "KING", "ACE"]
+    // let card1index = cardValues.indexOf(card1) //an inbuild function indexOf(the value you search for in the array)
+    // let card2index = cardValues.indexOf(card2)
+
+    // SECOND WAY TO DO IT
+    const cardValues = {
+        2: 2,
+        3: 3,
+        4: 4,
+        5: 5,
+        6: 6,
+        7: 7,
+        8: 8,
+        9: 9,
+        10: 10,
+        JACK: 11,
+        QUEEN: 12,
+        KING: 13,
+        ACE: 14
+    }
+    let card1index = cardValues[card1] //an inbuild function indexOf(the value you search for in the array)
+    let card2index = cardValues[card2]
+
 
     const result = card1index > card2index ? `${card1} wins with value ${card1index + 2}` : 
                     card1index < card2index ? `${card2} wins with value ${card2index + 2}` :
@@ -41,6 +62,7 @@ const determineWinner = (card1, card2) => {
     return result
 }
 
+// THIRD WAY TO DO IT
 // const determineWinner = (card1, card2) => { //my solution
 //     let realValue1 = null
 //     let realValue2 = null
