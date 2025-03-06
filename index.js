@@ -51,7 +51,7 @@ const determineWinner = (card1, card2) => {
         KING: 13,
         ACE: 14
     }
-    let card1index = cardValues[card1] //an inbuild function indexOf(the value you search for in the array)
+    let card1index = cardValues[card1] //when you want to get property value from an object based on key(property name)
     let card2index = cardValues[card2]
 
 
