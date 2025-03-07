@@ -1,11 +1,13 @@
+const getDeckBtn = document.getElementById("get-deck-btn")
 const getCardsBtn = document.getElementById("get-cards-btn")
 const cardsSection = document.getElementById("cards-section")
+const remaining = document.getElementById("remaining")
 const resultEl = document.getElementById("result-el")
 let deckId
 
 
 
-getCardsBtn.addEventListener("click", () => {
+getDeckBtn.addEventListener("click", () => {
     fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
     .then(res => res.json())
     .then(data => {
@@ -13,11 +15,13 @@ getCardsBtn.addEventListener("click", () => {
         deckId = data.deck_id
         console.log(deckId)
     })
-    setTimeout(()=> {
-        fetch(`https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`)
-        .then(res => res.json())
-        .then(data => {console.log(data.cards)
+})
 
+getCardsBtn.addEventListener("click", () => {
+    fetch(`https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`)
+    .then(res => res.json())
+    .then(data => {console.log(data)
+        remaining.textContent = `remaining cards: ${data.remaining}`
             let cardsHtml = ""
             data.cards.forEach((oneCard)=>{
                 cardsHtml += `<div class="card-slot"><img src=${oneCard.images.png} alt="${oneCard.value + " " + oneCard.suit}" class="card"/></div>`
@@ -26,8 +30,11 @@ getCardsBtn.addEventListener("click", () => {
              cardsSection.innerHTML = cardsHtml
             
              resultEl.innerHTML = determineWinner(data.cards[0].value,data.cards[1].value)
+
+             if(data.remaining === 0){
+                getCardsBtn.disabled = true;
+             }
         })
-    },2000)
 })
 
 const determineWinner = (card1, card2) => {
