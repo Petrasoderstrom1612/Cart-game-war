@@ -58,3 +58,8 @@ button:disabled {
     cursor: not-allowed;
     user-select: none;
 }
+
+.score{
+    color:white;
+    text-align: center;
+}

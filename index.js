@@ -3,6 +3,10 @@ const getCardsBtn = document.getElementById("get-cards-btn")
 const cardsSection = document.getElementById("cards-section")
 const remaining = document.getElementById("remaining")
 const resultEl = document.getElementById("result-el")
+const card1El = document.getElementById("card1")
+const card2El = document.getElementById("card2")
+let card1 = 0
+let card2 = 0
 let deckId
 
 
@@ -35,6 +39,9 @@ getCardsBtn.addEventListener("click", () => {
                 getCardsBtn.disabled = true;
              }
         })
+
+        card1El.innerHTML = card1
+        card2El.innerHTML = card2
 })
 
 const determineWinner = (card1, card2) => {
@@ -62,12 +69,18 @@ const determineWinner = (card1, card2) => {
     let card1index = cardValues[card1] //when you want to get property value from an object based on key(property name)
     let card2index = cardValues[card2]
 
+    if (card1index > card2index) {
+        card1++
+        card1El.innerHTML = card1
+        return "Card 1 wins!"
+    } else if (card1index < card2index) {
+        card2El.innerHTML = card2
+        card2++
+        return "Card 2 wins!"
+    } else {
+        return "War!"
+    }
 
-    const result = card1index > card2index ? `${card1} wins with value ${card1index + 2}` : 
-                    card1index < card2index ? `${card2} wins with value ${card2index + 2}` :
-                    "It's a tie"
-    
-    return result
 }
 
 // THIRD WAY TO DO IT
