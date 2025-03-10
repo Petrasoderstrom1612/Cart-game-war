@@ -69,18 +69,19 @@ const determineWinner = (card1, card2) => {
     let card1index = cardValues[card1] //when you want to get property value from an object based on key(property name)
     let card2index = cardValues[card2]
 
+    card1El.innerHTML = card1
+    card2El.innerHTML = card2
+    
     if (card1index > card2index) {
         card1++
-        card1El.innerHTML = card1
         return "Card 1 wins!"
     } else if (card1index < card2index) {
-        card2El.innerHTML = card2
         card2++
         return "Card 2 wins!"
     } else {
         return "War!"
     }
-
+    
 }
 
 // THIRD WAY TO DO IT
