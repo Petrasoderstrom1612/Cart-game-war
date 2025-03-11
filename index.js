@@ -66,10 +66,10 @@ getCardsBtn.addEventListener("click", () => {
                  getCardsBtn.disabled = true;
                  getDeckBtn.disabled = false;
                  if(computerScore > myScore){
-                     resultEl.innerHTML = `Computer wins ${computerScore} to ${myScore}`
+                     resultEl.innerHTML = `Computer wins the game ${computerScore} to ${myScore}`
                     }
                     else if(computerScore < myScore){
-                        resultEl.innerHTML = `You win ${myScore} to ${computerScore}`
+                        resultEl.innerHTML = `You win the game ${myScore} to ${computerScore}`
                     }
                     else{
                         "It's a tie 26 to 26"
@@ -84,11 +84,11 @@ const determineWinner = (card1index, card2index) => {
     if (card1index > card2index) {
         computerScore = computerScore + card1index
         showPlayersScore(computerScore, myScore)
-        return "Card 1 wins!"
+        return `Computer wins ${card1index} to ${card2index}!`
     } else if (card1index < card2index) {
         myScore = myScore + card2index
         showPlayersScore(computerScore, myScore)
-        return "Card 2 wins!"
+        return `You win ${card2index} to ${card1index}!`
     } else {
         return "War!"
     }
