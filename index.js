@@ -13,80 +13,81 @@ let card2index
 
 
 
-getDeckBtn.addEventListener("click", () => {
-    fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
-    .then(res => res.json())
-    .then(data => {
+getDeckBtn.addEventListener("click", async () => {
+    const res = await fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
+    const data = await res.json()
+
         console.log(data)
         deckId = data.deck_id
         console.log(deckId)
 
         getDeckBtn.disabled = true;
         getCardsBtn.disabled = false;
-    })
+
+        card1El.innerHTML = "Deck ready. Get cards!"
+    
 })
 
-getCardsBtn.addEventListener("click", () => {
-    fetch(`https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`)
-    .then(res => res.json())
-    .then(data => {console.log(data)
+getCardsBtn.addEventListener("click", async () => {
+    const res = await fetch(`https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`)
+    const data = await res.json()
 
-        remaining.textContent = `remaining cards: ${data.remaining}`
+    
+    remaining.textContent = `remaining cards: ${data.remaining}`
 
-            let cardsHtml = ""
-            data.cards.forEach((oneCard)=>{
-                cardsHtml += `<div class="card-slot"><img src=${oneCard.images.png} alt="${oneCard.value + " " + oneCard.suit}" class="card"/></div>`
-                // cardsContainer.children[0].innerHTML  /* If you would like to skip creating the extra div that is wrapping around the img
-            })
-             cardsSection.innerHTML = cardsHtml
-             
-             // ONE WAY TO DO IT
-             const cardValues = {
-                 2: 2,
-                 3: 3,
-                 4: 4,
-                 5: 5,
-                 6: 6,
-                 7: 7,
-                 8: 8,
-                 9: 9,
-                 10: 10,
-                 JACK: 11,
-                 QUEEN: 12,
-                 KING: 13,
-                 ACE: 14
-             }
-             card1index = cardValues[data.cards[0].value] //when you want to get property value from an object based on key(property name)
-             card2index = cardValues[data.cards[1].value]
+    let cardsHtml = ""
+    data.cards.forEach((oneCard)=>{
+        cardsHtml += `<div class="card-slot"><img src=${oneCard.images.png} alt="${oneCard.value + " " + oneCard.suit}" class="card"/></div>`
+        // cardsContainer.children[0].innerHTML  /* If you would like to skip creating the extra div that is wrapping around the img
+    })
+        cardsSection.innerHTML = cardsHtml
+        
+        // ONE WAY TO DO IT
+        const cardValues = {
+            2: 2,
+            3: 3,
+            4: 4,
+            5: 5,
+            6: 6,
+            7: 7,
+            8: 8,
+            9: 9,
+            10: 10,
+            JACK: 11,
+            QUEEN: 12,
+            KING: 13,
+            ACE: 14
+        }
+        card1index = cardValues[data.cards[0].value] //when you want to get property value from an object based on key(property name)
+        card2index = cardValues[data.cards[1].value]
 
-             
-             resultEl.innerHTML = determineWinner(card1index,card2index)
-             
-             if(data.remaining === 0){
-                 getCardsBtn.disabled = true;
-                 getDeckBtn.disabled = false;
-                 if(computerScore > myScore){
-                     resultEl.innerHTML = `Computer wins the game ${computerScore} to ${myScore}`
-                    }
-                    else if(computerScore < myScore){
-                        resultEl.innerHTML = `You win the game ${myScore} to ${computerScore}`
-                    }
-                    else{
-                        "It's a tie 26 to 26"
-                    }
-                }
-            })
+        
+        resultEl.innerHTML = determineWinner(card1index,card2index)
+        
+        if(data.remaining === 0){
+            getCardsBtn.disabled = true;
+            getDeckBtn.disabled = false;
+            if(computerScore > myScore){
+                resultEl.innerHTML = `Computer wins the game ${computerScore} to ${myScore}`
+            }
+            else if(computerScore < myScore){
+                resultEl.innerHTML = `You win the game ${myScore} to ${computerScore}`
+            }
+            else{
+                "It's a tie 26 to 26"
+            }
+        }
 })
 
 
 const determineWinner = (card1index, card2index) => { 
     
     if (card1index > card2index) {
-        computerScore = computerScore + card1index
+        computerScore ++
         showPlayersScore(computerScore, myScore)
         return `Computer wins ${card1index} to ${card2index}!`
     } else if (card1index < card2index) {
-        myScore = myScore + card2index
+        myScore ++
         showPlayersScore(computerScore, myScore)
         return `You win ${card2index} to ${card1index}!`
     } else {
