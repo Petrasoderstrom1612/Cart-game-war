@@ -20,6 +20,9 @@ getDeckBtn.addEventListener("click", () => {
         console.log(data)
         deckId = data.deck_id
         console.log(deckId)
+
+        getDeckBtn.disabled = true;
+        getCardsBtn.disabled = false;
     })
 })
 
@@ -61,6 +64,7 @@ getCardsBtn.addEventListener("click", () => {
              
              if(data.remaining === 0){
                  getCardsBtn.disabled = true;
+                 getDeckBtn.disabled = false;
                  if(computerScore > myScore){
                      resultEl.innerHTML = `Computer wins ${computerScore} to ${myScore}`
                     }
