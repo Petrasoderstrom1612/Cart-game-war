@@ -96,8 +96,8 @@ const determineWinner = (card1index, card2index) => {
 }
 
 const showPlayersScore = (computerScore, myScore) =>{
-    card1El.innerHTML = `Computer score: ${computerScore}`
-    card2El.innerHTML = `My score: ${myScore}`
+    card1El.innerHTML = `Computer score total: ${computerScore}`
+    card2El.innerHTML = `My score total: ${myScore}`
 }
 
 // SECOND  WAY TO DO IT
